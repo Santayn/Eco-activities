@@ -1,29 +1,24 @@
 package com.example.eco_activities
 
-import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemsActivity : AppCompatActivity() {
+class CompletedEventsActivity : AppCompatActivity() {
     private lateinit var dbHelper: DbHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_items)
+        setContentView(R.layout.activity_completed_events)
 
         dbHelper = DbHelper(this, null)
-        // Авто-архивация просроченных
-        dbHelper.archiveExpiredEvents()
-
-        val rv: RecyclerView = findViewById(R.id.itemslist)
+        val rv: RecyclerView = findViewById(R.id.completed_events_list)
         rv.layoutManager = LinearLayoutManager(this)
 
-        // Загрузка планируемых событий
         val list = mutableListOf<Item>()
-        dbHelper.getActiveItems().use { c ->
+        dbHelper.getArchivedItems().use { c ->
             while (c.moveToNext()) {
                 list += Item(
                     id = c.getInt(c.getColumnIndexOrThrow("id")),
@@ -41,13 +36,7 @@ class ItemsActivity : AppCompatActivity() {
 
         rv.adapter = ItemsAdapter(
             items = list,
-            onItemClick = { id, action ->
-                if (action == "click") {
-                    startActivity(Intent(this, ItemActivity::class.java).apply {
-                        putExtra("itemId", id)
-                    })
-                }
-            },
+            onItemClick = { _, _ -> /*можно показать детали*/ },
             isOrganizer = { false }
         )
     }

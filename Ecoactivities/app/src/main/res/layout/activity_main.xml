@@ -4,22 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#201628"
     tools:context=".MainActivity">
 
+    <!-- Заголовок -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/inter_bold"
         android:text="Создайте аккаунт"
         android:textColor="#fdfdfd"
         android:textSize="25sp"
         android:textStyle="bold" />
 
+    <!-- Поле ввода логина -->
     <EditText
         android:id="@+id/user_login"
         android:layout_width="220dp"
@@ -32,6 +34,7 @@
         android:textColor="#fdfdfd"
         android:hint="Введите логин" />
 
+    <!-- Поле ввода email -->
     <EditText
         android:id="@+id/user_email"
         android:layout_width="220dp"
@@ -44,6 +47,7 @@
         android:textColor="#fdfdfd"
         android:hint="Введите email" />
 
+    <!-- Поле ввода пароля -->
     <EditText
         android:id="@+id/user_pass"
         android:layout_width="220dp"
@@ -56,6 +60,33 @@
         android:textColor="#fdfdfd"
         android:hint="Введите пароль" />
 
+    <!-- Выбор роли -->
+    <RadioGroup
+        android:id="@+id/role_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+
+        <RadioButton
+            android:id="@+id/radio_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Пользователь"
+            android:textColor="#fdfdfd"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radio_organizer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Организатор"
+            android:textColor="#fdfdfd"
+            android:layout_marginStart="20dp" />
+    </RadioGroup>
+
+    <!-- Кнопка регистрации -->
     <Button
         android:id="@+id/button_reg"
         android:layout_width="220dp"
@@ -68,16 +99,15 @@
         android:backgroundTint="#e2a600"
         android:layout_marginTop="30dp" />
 
+    <!-- Ссылка на авторизацию -->
     <TextView
         android:id="@+id/link_to_auth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/inter_medium"
         android:text="Авторизоваться"
         android:textColor="#fdfdfd"
         android:textSize="17sp" />
-
 </LinearLayout>

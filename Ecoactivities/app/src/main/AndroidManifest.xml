@@ -17,6 +17,18 @@
         android:theme="@style/Theme.Ecoactivities"
         tools:targetApi="31">
         <activity
+            android:name=".CompletedEventsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditEventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddEventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrganizerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ItemActivity"
             android:exported="false" />
         <activity
