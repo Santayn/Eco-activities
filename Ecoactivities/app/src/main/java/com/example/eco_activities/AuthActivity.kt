@@ -10,54 +10,51 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class AuthActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
-        // Находим элементы интерфейса
-        val userLogin: EditText = findViewById(R.id.user_login_auth)
-        val userPass: EditText = findViewById(R.id.user_pass_auth)
-        val button: Button = findViewById(R.id.button_reg_auth)
-        val linkToReg: TextView = findViewById(R.id.link_to_reg)
+        val userLogin : EditText = findViewById(R.id.user_login_auth)
+        val userPass  : EditText = findViewById(R.id.user_pass_auth)
+        val btnLogin  : Button   = findViewById(R.id.button_reg_auth)
+        val linkReg   : TextView = findViewById(R.id.link_to_reg)
 
-        // Переход на экран регистрации
-        linkToReg.setOnClickListener {
+        // Перейти на регистрацию
+        linkReg.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-        // Обработка нажатия на кнопку авторизации
-        button.setOnClickListener {
+        btnLogin.setOnClickListener {
             val login = userLogin.text.toString().trim()
-            val pass = userPass.text.toString().trim()
-
+            val pass  = userPass.text.toString().trim()
             if (login.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val db = DbHelper(this, null)
-            val cursor: Cursor? = db.getUserWithRole(login, pass)
-
-            if (cursor != null && cursor.moveToFirst()) {
-                val role = cursor.getString(cursor.getColumnIndexOrThrow("role"))
-                val userId = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
-
-                Toast.makeText(this, "Пользователь $login авторизован как $role", Toast.LENGTH_LONG).show()
-
-                val intent = when (role) {
-                    "user" -> Intent(this, ItemsActivity::class.java)
-                    "organizer" -> {
-                        val organizerIntent = Intent(this, OrganizerActivity::class.java)
-                        organizerIntent.putExtra("organizerId", userId)
-                        organizerIntent
-                    }
-                    else -> Intent(this, ItemsActivity::class.java)
-                }
-                startActivity(intent)
+            val db: DbHelper = DbHelper(this, null)
+            val cursor: Cursor = db.getUserWithRole(login, pass)
+            if (cursor.moveToFirst()) {
+                val role   = cursor.getString(cursor.getColumnIndexOrThrow("role"))
+                val userId = cursor.getInt   (cursor.getColumnIndexOrThrow("id"))
                 cursor.close()
+
+                Toast.makeText(this,
+                    "Авторизация прошла (role = $role)", Toast.LENGTH_SHORT
+                ).show()
+
+                // Запускаем нужный экран
+                val next = when (role) {
+                    "organizer" -> Intent(this, OrganizerActivity::class.java)
+                        .putExtra("organizerId", userId)
+                    else        -> Intent(this, UserProfileActivity::class.java)
+                        .putExtra("userId", userId)
+                }
+                startActivity(next)
+                finish()  // чтобы по «Назад» не вернуться сюда
             } else {
-                Toast.makeText(this, "Пользователь $login не авторизован", Toast.LENGTH_LONG).show()
+                cursor.close()
+                Toast.makeText(this, "Неверный логин или пароль", Toast.LENGTH_SHORT).show()
             }
         }
     }

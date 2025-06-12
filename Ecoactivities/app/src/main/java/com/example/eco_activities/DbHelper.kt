@@ -14,19 +14,22 @@ import java.util.*
 class DbHelper(
     private val context: Context,
     factory: SQLiteDatabase.CursorFactory?
-) : SQLiteOpenHelper(context, "app.db", factory, 4) {
+) : SQLiteOpenHelper(context, "app.db", factory, 5) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        val users = """
+        // 1) Пользователи
+        db.execSQL("""
             CREATE TABLE users (
               id INTEGER PRIMARY KEY AUTOINCREMENT,
-              login TEXT, email TEXT, pass TEXT,
+              login TEXT,
+              email TEXT,
+              pass TEXT,
               role TEXT DEFAULT 'user'
             );
-        """.trimIndent()
-        db.execSQL(users)
+        """.trimIndent())
 
-        val items = """
+        // 2) Мероприятия
+        db.execSQL("""
             CREATE TABLE items (
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               image TEXT,
@@ -39,16 +42,29 @@ class DbHelper(
               organizer_id INTEGER,
               FOREIGN KEY (organizer_id) REFERENCES users(id)
             );
-        """.trimIndent()
-        db.execSQL(items)
+        """.trimIndent())
+
+        // 3) Записи пользователей на мероприятия
+        db.execSQL("""
+            CREATE TABLE signups (
+              id      INTEGER PRIMARY KEY AUTOINCREMENT,
+              user_id INTEGER NOT NULL,
+              item_id INTEGER NOT NULL,
+              FOREIGN KEY (user_id) REFERENCES users(id),
+              FOREIGN KEY (item_id) REFERENCES items(id)
+            );
+        """.trimIndent())
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldV: Int, newV: Int) {
+        // Удаляем все таблицы и пересоздаём
+        db.execSQL("DROP TABLE IF EXISTS signups")
         db.execSQL("DROP TABLE IF EXISTS items")
         db.execSQL("DROP TABLE IF EXISTS users")
         onCreate(db)
     }
 
+    // --- User methods ---
     fun addUser(user: User) {
         writableDatabase.use { db ->
             val cv = ContentValues().apply {
@@ -67,6 +83,7 @@ class DbHelper(
             arrayOf(login, pass)
         )
 
+    // --- Item methods ---
     fun addItem(item: Item) {
         writableDatabase.use { db ->
             val cv = ContentValues().apply {
@@ -116,6 +133,18 @@ class DbHelper(
             arrayOf(orgId.toString())
         )
 
+    fun getPlannedItemsByOrganizer(orgId: Int): Cursor =
+        readableDatabase.rawQuery(
+            "SELECT * FROM items WHERE organizer_id = ? AND status = ?",
+            arrayOf(orgId.toString(), "planned")
+        )
+
+    fun getCompletedItemsByOrganizer(orgId: Int): Cursor =
+        readableDatabase.rawQuery(
+            "SELECT * FROM items WHERE organizer_id = ? AND status = ?",
+            arrayOf(orgId.toString(), "completed")
+        )
+
     fun getActiveItems(): Cursor =
         readableDatabase.rawQuery(
             "SELECT * FROM items WHERE status = ?",
@@ -128,20 +157,15 @@ class DbHelper(
             arrayOf("completed")
         )
 
-    /**
-     * Перевести событие в completed + скопировать изображение в папку archive_images
-     */
+    // Перевести event в completed + скопировать изображение в архив
     fun completeItem(itemId: Int) {
-        // 1) Получаем старый путь
         var oldImage: String? = null
         getItemById(itemId).use { c ->
             if (c.moveToFirst()) {
                 oldImage = c.getString(c.getColumnIndexOrThrow("image"))
             }
         }
-        // 2) Копируем файл, если он есть
         val newPath = oldImage?.let { copyFileToArchive(context, it) }
-        // 3) Обновляем статус и, возможно, путь
         writableDatabase.use { db ->
             val cv = ContentValues().apply {
                 put("status", "completed")
@@ -151,9 +175,7 @@ class DbHelper(
         }
     }
 
-    /**
-     * Однократно проставляет completed всем просроченным planned-событиям
-     */
+    // Архивировать все просроченные (по дате) planned-события
     fun archiveExpiredEvents() {
         val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val expiredIds = mutableListOf<Int>()
@@ -168,35 +190,74 @@ class DbHelper(
         expiredIds.forEach { completeItem(it) }
     }
 
-    /** Физически копирует файл в filesDir/archive_images и возвращает новый путь */
+    // --- Signup methods ---
+    /** Добавить запись пользователя на мероприятие */
+    fun addSignUp(userId: Int, itemId: Int): Boolean {
+        writableDatabase.use { db ->
+            val cv = ContentValues().apply {
+                put("user_id", userId)
+                put("item_id", itemId)
+            }
+            val id = db.insert("signups", null, cv)
+            return id != -1L
+        }
+    }
+
+    /** Проверить, записан ли пользователь на мероприятие */
+    fun isUserSigned(userId: Int, itemId: Int): Boolean {
+        readableDatabase.use { db ->
+            db.rawQuery(
+                "SELECT 1 FROM signups WHERE user_id = ? AND item_id = ? LIMIT 1",
+                arrayOf(userId.toString(), itemId.toString())
+            ).use { c ->
+                return c.moveToFirst()
+            }
+        }
+    }
+
+    /** Количество записавшихся на мероприятие */
+    fun getSignUpCount(itemId: Int): Int {
+        readableDatabase.use { db ->
+            db.rawQuery(
+                "SELECT COUNT(*) FROM signups WHERE item_id = ?",
+                arrayOf(itemId.toString())
+            ).use { c ->
+                if (c.moveToFirst()) return c.getInt(0)
+            }
+        }
+        return 0
+    }
+
+    /** Активные мероприятия, на которые записан пользователь */
+    fun getUserSignedActiveEvents(userId: Int): Cursor =
+        readableDatabase.rawQuery("""
+            SELECT i.* FROM items i
+              JOIN signups s ON i.id = s.item_id
+             WHERE s.user_id = ? AND i.status = ?
+        """.trimIndent(), arrayOf(userId.toString(), "planned"))
+
+    /** Архивные мероприятия, на которые записан пользователь */
+    fun getUserSignedArchivedEvents(userId: Int): Cursor =
+        readableDatabase.rawQuery("""
+            SELECT i.* FROM items i
+              JOIN signups s ON i.id = s.item_id
+             WHERE s.user_id = ? AND i.status = ?
+        """.trimIndent(), arrayOf(userId.toString(), "completed"))
+
+    // --- Вспомогательный метод для копирования картинок ---
     private fun copyFileToArchive(ctx: Context, sourcePath: String): String? {
         val src = File(sourcePath)
         if (!src.exists()) return null
-        val archive = File(ctx.filesDir, "archive_images").also { if (!it.exists()) it.mkdirs() }
-        val dst = File(archive, src.name)
+        val archiveDir = File(ctx.filesDir, "archive_images").apply { if (!exists()) mkdirs() }
+        val dest = File(archiveDir, src.name)
         return try {
             FileInputStream(src).use { input ->
-                FileOutputStream(dst).use { output -> input.copyTo(output) }
+                FileOutputStream(dest).use { output -> input.copyTo(output) }
             }
-            dst.absolutePath
+            dest.absolutePath
         } catch (e: Exception) {
             e.printStackTrace()
             null
         }
     }
-    /**
-     * Возвращает только "planned" события данного организатора
-     */
-    fun getPlannedItemsByOrganizer(orgId: Int): Cursor =
-        readableDatabase.rawQuery(
-            "SELECT * FROM items WHERE organizer_id = ? AND status = ?",
-            arrayOf(orgId.toString(), "planned")
-        )
-
-    /** Только проведённые (для архива) */
-    fun getCompletedItemsByOrganizer(orgId: Int): Cursor =
-        readableDatabase.rawQuery(
-            "SELECT * FROM items WHERE organizer_id = ? AND status = ?",
-            arrayOf(orgId.toString(), "completed")
-        )
 }

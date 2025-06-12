@@ -8,19 +8,21 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+
 class ItemsAdapter(
     private val items: List<Item>,
-    private val onItemClick: (Int, String) -> Unit, // itemId, action ("delete" или "complete")
-    private val isOrganizer: (Int) -> Boolean // Флаг для определения роли пользователя
+    private val onItemClick: (Int, String) -> Unit, // itemId, action ("open", "delete", "complete")
+    private val isOrganizer: (Int) -> Boolean       // флаг: true = показываем delete/complete
 ) : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
-    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.item_list_image)
-        val title: TextView = view.findViewById(R.id.item_list_title)
-        val desc: TextView = view.findViewById(R.id.item_list_description)
-        val price: TextView = view.findViewById(R.id.item_list_price)
-        val buttonDelete: Button = view.findViewById(R.id.button_delete)
-        val buttonComplete: Button = view.findViewById(R.id.button_complete)
+    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image         : ImageView = view.findViewById(R.id.item_list_image)
+        val title         : TextView  = view.findViewById(R.id.item_list_title)
+        val desc          : TextView  = view.findViewById(R.id.item_list_description)
+        val price         : TextView  = view.findViewById(R.id.item_list_price)
+        val openButton    : Button    = view.findViewById(R.id.item_list_button)
+        val buttonDelete  : Button    = view.findViewById(R.id.button_delete)
+        val buttonComplete: Button    = view.findViewById(R.id.button_complete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -32,38 +34,39 @@ class ItemsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = items[position]
 
-        // Загрузка изображения
-        holder.image.setImageResource(getImageResourceId(holder.itemView.context, item.image))
-
-        // Отображение данных
+        // 1) контент
+        holder.image.setImageResource(getImageRes(holder.itemView.context, item.image))
         holder.title.text = item.title
-        holder.desc.text = item.desc
+        holder.desc .text = item.desc
         holder.price.text = "${item.price} ₽"
 
-        // Настройка видимости кнопок
-        if (isOrganizer(item.id)) { // Correctly call the isOrganizer function
-            holder.buttonDelete.visibility = View.VISIBLE
+        // 2) организатор?
+        if (isOrganizer(item.id)) {
+            // показываем только delete/complete
+            holder.openButton.visibility     = View.GONE
+            holder.buttonDelete.visibility   = View.VISIBLE
             holder.buttonComplete.visibility = View.VISIBLE
 
-            // Настройка кнопки "Удалить"
             holder.buttonDelete.setOnClickListener {
                 onItemClick(item.id, "delete")
             }
-
-            // Настройка кнопки "Провести"
             holder.buttonComplete.setOnClickListener {
                 onItemClick(item.id, "complete")
             }
         } else {
-            holder.buttonDelete.visibility = View.GONE
+            // показываем только «Открыть»
+            holder.buttonDelete.visibility   = View.GONE
             holder.buttonComplete.visibility = View.GONE
+            holder.openButton.visibility     = View.VISIBLE
+
+            holder.openButton.setOnClickListener {
+                onItemClick(item.id, "open")
+            }
         }
     }
 
     override fun getItemCount(): Int = items.size
 
-    // Метод для получения ID ресурса изображения по имени файла
-    private fun getImageResourceId(context: Context, imageName: String): Int {
-        return context.resources.getIdentifier(imageName, "drawable", context.packageName)
-    }
+    private fun getImageRes(ctx: Context, name: String): Int =
+        ctx.resources.getIdentifier(name, "drawable", ctx.packageName)
 }
