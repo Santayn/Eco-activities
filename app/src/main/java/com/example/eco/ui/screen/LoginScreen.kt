@@ -1,4 +1,4 @@
-package com.example.eco.screen
+package com.example.eco.ui.screen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

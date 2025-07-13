@@ -1,0 +1,14 @@
+package com.example.eco.model
+
+import androidx.room.Entity
+
+data class Event(
+    val id: Int,
+    val title: String,
+    val status: String,
+    val date: String,
+    val time: String,
+    val location: String,
+    val description: String,
+    val imageResId: Int? = null // ID изображения (для Jetpack Compose)
+)

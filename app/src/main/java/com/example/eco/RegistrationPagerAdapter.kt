@@ -1,28 +1,21 @@
+package com.example.eco
+
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.eco.OrganizationRegistrationFragment
-import com.example.eco.VolunteerRegistrationFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.eco.ui.fragments.OrganizationRegistrationFragment
+import com.example.eco.ui.fragments.VolunteerRegistrationFragment
 
-class RegistrationPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class RegistrationPagerAdapter(fragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(fragmentActivity) {
 
-    override fun getItem(position: Int): Fragment {
+    override fun getItemCount(): Int = 2
+
+    override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> VolunteerRegistrationFragment()
             1 -> OrganizationRegistrationFragment()
             else -> VolunteerRegistrationFragment()
-        }
-    }
-
-    override fun getCount(): Int {
-        return 2
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        return when (position) {
-            0 -> "ВОЛОНТЕР"
-            1 -> "ОРГАНИЗАЦИЯ"
-            else -> null
         }
     }
 }

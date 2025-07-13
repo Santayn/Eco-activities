@@ -1,0 +1,53 @@
+<resources>
+    <!-- Основной цвет фона -->
+    <color name="background_color">#007AFF</color>
+
+    <!-- Цвет текста -->
+    <color name="text_color">#FFFFFF</color>
+
+    <!-- Цвет кнопок -->
+    <color name="button_color">#A8C5FF</color>
+
+    <!-- Цвет границы полей ввода -->
+    <color name="input_border_color">#CCCCCC</color>
+
+    <!-- Шрифт заголовков -->
+    <style name="TitleText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Шрифт обычного текста -->
+    <style name="BodyText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <!-- Стиль кнопки -->
+    <style name="ButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/button_color</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingVertical">16dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Стиль поля ввода -->
+    <style name="InputField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/input_background</item>
+        <item name="android:textColorHint">@color/input_border_color</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Остальные стили -->
+    </style>
+</resources>

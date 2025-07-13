@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.eco">
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,7 @@
 
         <!-- Главная активность (точка входа) -->
         <activity
-            android:name=".screen.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,14 +26,16 @@
 
         <!-- Экран входа -->
         <activity
-            android:name="com.example.eco.screen.LoginActivity"
+            android:name="com.example.eco.ui.screen.LoginActivity"
             android:exported="false" />
 
         <!-- Экран регистрации -->
         <activity
-            android:name="com.example.eco.RegisterActivity"
+            android:name="com.example.eco.ui.activities.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.eco.ui.activities.EventsActivity"
             android:exported="false" />
 
     </application>
-
 </manifest>

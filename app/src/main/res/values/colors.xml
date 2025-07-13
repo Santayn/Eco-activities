@@ -5,5 +5,10 @@
     <color name="black">#000000</color> <!-- Черный текст -->
     <color name="grey">#808080</color> <!-- Серый текст -->
     <color name="blue">#007AFF</color> <!-- Голубая ссылка -->
+    <color name="primary">#007AFF</color>
+    <color name="secondary">#FFC107</color>
+    <color name="background">#FFFFFF</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
 
 </resources>

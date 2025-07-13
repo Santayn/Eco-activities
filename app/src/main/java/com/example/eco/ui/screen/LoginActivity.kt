@@ -1,4 +1,4 @@
-package com.example.eco.screen
+package com.example.eco.ui.screen
 import com.example.eco.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.eco.RegisterActivity
+import com.example.eco.ui.activities.RegisterActivity
 
-import com.example.eco.screen.MainActivity
+import com.example.eco.ui.activities.MainActivity
 
 
 class LoginActivity : AppCompatActivity() {

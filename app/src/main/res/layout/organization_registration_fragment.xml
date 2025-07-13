@@ -1,106 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:background="@color/background_color"
+    android:padding="16dp">
 
-    <!-- Поле "Название организации" -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Название организации *"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+    <!-- Шапка -->
 
-    <EditText
-        android:id="@+id/organization_name_edittext"
+    <!-- Форма регистрации -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Введите название организации"
-        android:inputType="textPersonName"
-        android:background="@drawable/edittext_background"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/grey"
-        android:textColor="@color/black" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
 
-    <!-- Поле "Логин" -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Логин *"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/login_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Придумайте логин"
-        android:inputType="text"
-        android:background="@drawable/edittext_background"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/grey"
-        android:textColor="@color/black" />
+            <!-- Заголовок формы -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Регистрация"
+                style="@style/TitleText"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp" />
 
-    <!-- Поле "Email" -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
 
-    <EditText
-        android:id="@+id/email_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="email@example.com (необязательно)"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/edittext_background"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/grey"
-        android:textColor="@color/black" />
 
-    <!-- Поле "Пароль" -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Пароль *"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+            <!-- Поле "Название организации" -->
+            <EditText
+                android:id="@+id/organization_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Введите название организации"
+                style="@style/InputField" />
 
-    <EditText
-        android:id="@+id/password_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Минимум 6 символов"
-        android:inputType="textPassword"
-        android:background="@drawable/edittext_background"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/grey"
-        android:textColor="@color/black" />
+            <!-- Поле "Логин" -->
+            <EditText
+                android:id="@+id/login_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Придумайте логин"
+                style="@style/InputField" />
 
-    <!-- Поле "Подтвердите пароль" -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Подтвердите пароль *"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+            <!-- Поле "Email" -->
+            <EditText
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="email@example.com (необязательно)"
+                style="@style/InputField" />
 
-    <EditText
-        android:id="@+id/confirm_password_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Повторите пароль"
-        android:inputType="textPassword"
-        android:background="@drawable/edittext_background"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/grey"
-        android:textColor="@color/black" />
+            <!-- Поле "Пароль" -->
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Минимум 6 символов"
+                android:inputType="textPassword"
+                style="@style/InputField" />
+
+            <!-- Поле "Подтвердите пароль" -->
+            <EditText
+                android:id="@+id/confirm_password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Повторите пароль"
+                android:inputType="textPassword"
+                style="@style/InputField" />
+
+            <!-- Кнопка "Создать аккаунт" -->
+            <Button
+                android:id="@+id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Создать аккаунт"
+                style="@style/ButtonStyle"
+                android:onClick="onRegisterClick" />
+
+            <!-- Разделитель -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/input_border_color"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Текст "Уже есть аккаунт? Войти" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Уже есть аккаунт? Войти"
+                android:textColor="@color/text_color"
+                android:textSize="14sp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onLoginClick" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
