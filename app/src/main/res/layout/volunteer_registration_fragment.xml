@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <!-- Поле "Полное имя" -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Полное имя *"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/full_name_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите ваше ФИО"
+        android:inputType="textPersonName"
+        android:background="@drawable/edittext_background"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/black" />
+
+    <!-- Поле "Логин" -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Логин *"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/login_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Придумайте логин"
+        android:inputType="text"
+        android:background="@drawable/edittext_background"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/black" />
+
+    <!-- Поле "Email" -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/email_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="email@example.com (необязательно)"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/edittext_background"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/black" />
+
+    <!-- Поле "Пароль" -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Пароль *"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/password_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Минимум 6 символов"
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_background"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/black" />
+
+    <!-- Поле "Подтвердите пароль" -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Подтвердите пароль *"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/confirm_password_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Повторите пароль"
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_background"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/black" />
+</LinearLayout>

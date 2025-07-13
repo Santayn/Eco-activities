@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue_background">#007AFF</color> <!-- Голубой фон -->
+    <color name="white">#FFFFFF</color> <!-- Белый текст -->
+    <color name="black">#000000</color> <!-- Черный текст -->
+    <color name="grey">#808080</color> <!-- Серый текст -->
+    <color name="blue">#007AFF</color> <!-- Голубая ссылка -->
+
+</resources>
