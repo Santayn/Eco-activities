@@ -1,6 +1,4 @@
-package com.example.eco.model
-
-import androidx.room.Entity
+package com.example.eco.api.dto.event
 
 data class Event(
     val id: Int,

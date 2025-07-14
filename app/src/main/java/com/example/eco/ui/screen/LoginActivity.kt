@@ -9,10 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eco.R
 import com.example.eco.api.ApiClient
-import com.example.eco.api.LoginRequest
-import com.example.eco.api.LoginResponse
+import com.example.eco.api.dto.auth.AuthRequestDto
+import com.example.eco.api.dto.auth.AuthResponseDto
 import com.example.eco.ui.activities.EventsActivity
-import com.example.eco.ui.activities.MainActivity
 import com.example.eco.ui.activities.RegisterActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,9 +36,9 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val request = LoginRequest(login, password)
-            ApiClient.authService.login(request).enqueue(object : Callback<LoginResponse> {
-                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+            val request = AuthRequestDto(login, password)
+            ApiClient.authService.login(request).enqueue(object : Callback<AuthResponseDto> {
+                override fun onResponse(call: Call<AuthResponseDto>, response: Response<AuthResponseDto>) {
                     if (response.isSuccessful) {
                         val user = response.body()
                         if (user != null) {
@@ -55,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                override fun onFailure(call: Call<AuthResponseDto>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, "Ошибка подключения: ${t.message}", Toast.LENGTH_LONG).show()
                     t.printStackTrace()
                 }

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eco.EventAdapter
+import com.example.eco.adapter.EventAdapter
 import com.example.eco.R
 import com.example.eco.ui.screen.EventsViewModel
 import kotlinx.coroutines.CoroutineScope

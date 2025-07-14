@@ -1,6 +1,6 @@
-package com.example.eco.api
+package com.example.eco.api.dto.auth
 
-data class LoginResponse(
+data class AuthResponseDto(
     val id: Int,
     val fullName: String,
     val login: String,

@@ -6,97 +6,98 @@
     android:background="@color/background_color"
     android:padding="16dp">
 
-    <!-- Шапка -->
+    <!-- Заголовок формы -->
+    <TextView
+        android:id="@+id/tv_volunteer_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Регистрация волонтёра"
+        style="@style/TitleText"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Форма регистрации -->
-    <ScrollView
+    <!-- Поле "Название организации" -->
+    <EditText
+        android:id="@+id/et_volunteer_full_name"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:hint="Введите полное имя"
+        style="@style/InputField"
+        android:textColor="@color/black"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <!-- Поле "Логин" -->
+    <EditText
+        android:id="@+id/et_volunteer_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Придумайте логин"
+        style="@style/InputField"
+        android:textColor="@color/black"/>
 
-            <!-- Заголовок формы -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Регистрация"
-                style="@style/TitleText"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp" />
+    <!-- Поле "Email" -->
+    <EditText
+        android:id="@+id/et_volunteer_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="email@example.com (необязательно)"
+        style="@style/InputField"
+        android:textColor="@color/black"/>
+    <!-- Поле "Phone" -->
+    <EditText
+        android:id="@+id/et_volunteer_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Номер телефона"
+        style="@style/InputField"
+        android:textColor="@color/black"/>
 
-            <!-- Поле "Полное имя" -->
-            <EditText
-                android:id="@+id/full_name_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Введите ваше ФИО"
-                style="@style/InputField" />
+    <!-- Поле "Пароль" -->
+    <EditText
+        android:id="@+id/et_volunteer_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Придумайте пароль (не менее 6 знаков)"
+        android:inputType="textPassword"
+        style="@style/InputField"
+        android:textColor="@color/black"/>
 
-            <!-- Поле "Логин" -->
-            <EditText
-                android:id="@+id/login_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Придумайте логин"
-                style="@style/InputField" />
+    <!-- Поле "Подтвердите пароль" -->
+    <EditText
+        android:id="@+id/et_volunteer_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Повторите пароль"
+        android:inputType="textPassword"
+        style="@style/InputField"
+        android:textColor="@color/black"/>
 
-            <!-- Поле "Email" -->
-            <EditText
-                android:id="@+id/email_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="email@example.com (необязательно)"
-                style="@style/InputField" />
+    <!-- Кнопка "Создать аккаунт" -->
+    <Button
+        android:id="@+id/btn_volunteer_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Создать аккаунт организации"
+        style="@style/ButtonStyle"
+        android:onClick="registerOrganization"
+        />
 
-            <!-- Поле "Пароль" -->
-            <EditText
-                android:id="@+id/password_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Минимум 6 символов"
-                android:inputType="textPassword"
-                style="@style/InputField" />
+    <!-- Разделитель -->
+    <View
+        android:id="@+id/divider_volunteer"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/input_border_color"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
 
-            <!-- Поле "Подтвердите пароль" -->
-            <EditText
-                android:id="@+id/confirm_password_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Повторите пароль"
-                android:inputType="textPassword"
-                style="@style/InputField" />
-
-            <!-- Кнопка "Создать аккаунт" -->
-            <Button
-                android:id="@+id/register_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Создать аккаунт"
-                style="@style/ButtonStyle"
-                android:onClick="onRegisterClick" />
-
-            <!-- Разделитель -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/input_border_color"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
-
-            <!-- Текст "Уже есть аккаунт? Войти" -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Уже есть аккаунт? Войти"
-                android:textColor="@color/text_color"
-                android:textSize="14sp"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onLoginClick" />
-        </LinearLayout>
-    </ScrollView>
+    <!-- Текст "Уже есть аккаунт? Войти" -->
+    <TextView
+        android:id="@+id/tv_volunteer_login_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Уже есть аккаунт? Войти"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onLoginClick" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.eco
+package com.example.eco.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
