@@ -34,7 +34,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        // Если используете Compose, можно включить freeCompilerArgs
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
@@ -54,7 +53,7 @@ android {
 }
 
 dependencies {
-    // Kotlin Standard Library (используем последнюю версию)
+    // Kotlin Standard Library
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.0")
 
     // Android Core & AppCompat
@@ -76,9 +75,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
 
-    // Retrofit
+    // Retrofit + OkHttp
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3") // Полезно для отладки
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
