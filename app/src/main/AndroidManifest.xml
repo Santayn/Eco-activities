@@ -39,5 +39,8 @@ tools:targetApi="31"
     android:name="com.example.eco.ui.activities.EventsActivity"
     android:exported="false" />
 
+    <activity
+        android:name="com.example.eco.ui.activities.OrganizationProfileActivity"
+        android:exported="false" />
 </application>
     </manifest>

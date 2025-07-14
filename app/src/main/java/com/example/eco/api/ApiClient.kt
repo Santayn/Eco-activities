@@ -2,6 +2,7 @@ package com.example.eco.api
 
 import com.example.eco.api.dto.service.AuthService
 import com.example.eco.api.dto.service.RegistrationService
+import com.example.eco.api.dto.service.UserService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -41,5 +42,13 @@ object ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RegistrationService::class.java)
+    }
+    val userService: UserService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(UserService::class.java)
     }
 }

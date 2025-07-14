@@ -10,5 +10,7 @@
     <color name="background">#FFFFFF</color>
     <color name="text_primary">#333333</color>
     <color name="text_secondary">#666666</color>
+    <color name="red_500">#FF5252</color>
+    <color name="colorPrimaryLight">#E8F5E9</color>
 
 </resources>
