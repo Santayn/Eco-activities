@@ -1,18 +1,17 @@
+// File: LoginActivity.kt
+
 package com.example.eco.ui.screen
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eco.R
 import com.example.eco.api.ApiClient
 import com.example.eco.api.dto.auth.AuthRequestDto
 import com.example.eco.api.dto.auth.AuthResponseDto
 import com.example.eco.ui.activities.EventsActivity
-import com.example.eco.ui.activities.OrganizationProfileActivity
 import com.example.eco.ui.activities.RegisterActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +21,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // Инициализируем ApiClient
+        ApiClient.init(applicationContext)
 
         val loginEditText = findViewById<EditText>(R.id.login_edittext)
         val passwordEditText = findViewById<EditText>(R.id.password_edittext)
@@ -43,8 +45,11 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val user = response.body()
                         if (user != null) {
+                            // Сохраняем токен
+                            val sharedPref = getSharedPreferences("auth", Context.MODE_PRIVATE)
+                            sharedPref.edit().putString("token", user.token).apply()
+
                             Toast.makeText(this@LoginActivity, "Добро пожаловать, ${user.fullName}!", Toast.LENGTH_SHORT).show()
-                            // Перейти к главной активности
                             startActivity(Intent(this@LoginActivity, EventsActivity::class.java).apply {
                                 putExtra("USER_ID", user.id)
                             })

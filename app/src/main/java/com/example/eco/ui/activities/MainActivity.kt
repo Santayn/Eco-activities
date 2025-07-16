@@ -1,3 +1,5 @@
+// File: MainActivity.kt
+
 package com.example.eco.ui.activities
 
 import android.content.Intent

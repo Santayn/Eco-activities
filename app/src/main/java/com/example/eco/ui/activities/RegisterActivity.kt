@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.eco.R
 import com.example.eco.ui.adapter.RegistrationPagerAdapter
 import com.example.eco.ui.screen.LoginActivity
+
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

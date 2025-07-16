@@ -1,5 +1,4 @@
 package com.example.eco.api.dto.event
-
 data class OwnerDTO(
     val id: Int,
     val fullName: String,

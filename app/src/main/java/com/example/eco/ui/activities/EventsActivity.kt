@@ -1,39 +1,43 @@
+// File: EventsActivity.kt
+
 package com.example.eco.ui.activities
 
+import EventRepository
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eco.EventRepository
 import com.example.eco.EventViewModelFactory
 import com.example.eco.R
 import com.example.eco.api.ApiClient
 import com.example.eco.adapter.EventAdapter
 import com.example.eco.ui.screen.EventsViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class EventsActivity : AppCompatActivity() {
-
-    private lateinit var viewModel: EventsViewModel
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: EventAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_events)
 
+        // Инициализация ApiClient с контекстом
+        ApiClient.init(this)
+
         val apiService = ApiClient.eventService
         val repository = EventRepository(apiService)
-        viewModel = ViewModelProvider(this, EventViewModelFactory(repository))[EventsViewModel::class.java]
+        val viewModel = ViewModelProvider(this, EventViewModelFactory(repository))[EventsViewModel::class.java]
 
-        recyclerView = findViewById(R.id.recyclerView)
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = EventAdapter(mutableListOf())
+        val adapter = EventAdapter()
         recyclerView.adapter = adapter
 
-        lifecycleScope.launchWhenStarted {
+        // Подписываемся на изменения events через collect
+        lifecycleScope.launch {
             viewModel.events.collect { events ->
                 adapter.submitList(events)
             }

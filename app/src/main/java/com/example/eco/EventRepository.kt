@@ -1,11 +1,25 @@
-package com.example.eco
+// File: EventRepository.kt
 
-import com.example.eco.api.ApiService
-import com.example.eco.api.dto.event.Event
-import javax.inject.Inject
+import android.util.Log
+import com.example.eco.api.dto.event.EventResponseMediumDTO
+import com.example.eco.api.ApiClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class EventRepository @Inject constructor(private val apiService: ApiService) {
-    suspend fun getEvents(): List<Event> {
-        return apiService.getAllEvents().body() ?: emptyList()
+class EventRepository(private val apiService: ApiService) {
+
+    suspend fun getAllEvents(): List<EventResponseMediumDTO> = withContext(Dispatchers.IO) {
+        try {
+            val response = apiService.getAllEvents()
+            if (response.isSuccessful) {
+                response.body() ?: emptyList()
+            } else {
+                Log.e("EventRepository", "Ошибка ответа: ${response.code()} - ${response.errorBody()?.string()}")
+                emptyList()
+            }
+        } catch (e: Exception) {
+            Log.e("EventRepository", "Ошибка сети: ${e.message}", e)
+            emptyList()
+        }
     }
 }

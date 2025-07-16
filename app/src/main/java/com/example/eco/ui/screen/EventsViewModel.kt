@@ -1,30 +1,23 @@
+// File: EventsViewModel.kt
+
 package com.example.eco.ui.screen
 
+import EventRepository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.eco.EventRepository
-import com.example.eco.api.dto.event.Event
+import com.example.eco.api.dto.event.EventResponseMediumDTO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class EventsViewModel(private val repository: EventRepository) : ViewModel() {
 
-    private val _events = MutableStateFlow<List<Event>>(emptyList())
-    val events: StateFlow<List<Event>> get() = _events
+    private val _events = MutableStateFlow<List<EventResponseMediumDTO>>(emptyList())
+    val events: StateFlow<List<EventResponseMediumDTO>> = _events
 
     init {
-        loadEvents()
-    }
-
-    private fun loadEvents() {
         viewModelScope.launch {
-            try {
-                val events = repository.getEvents()
-                _events.value = events
-            } catch (e: Exception) {
-                // Можно добавить обработку ошибок
-            }
+            _events.value = repository.getAllEvents()
         }
     }
 }
