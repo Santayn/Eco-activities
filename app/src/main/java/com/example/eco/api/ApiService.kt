@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @GET("api/events")
+    @GET("api/events/")
     suspend fun getAllEvents(): Response<List<EventResponseMediumDTO>>
     // Получить событие по ID
     @GET("api/events/{eventId}")
