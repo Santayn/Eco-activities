@@ -7,9 +7,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eco.R
 import com.example.eco.api.dto.event.Event
+import java.text.SimpleDateFormat
+import java.util.*
 
-class EventAdapter(private val events: List<Event>) :
+class EventAdapter(private val events: MutableList<Event>) :
     RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+
+    fun submitList(newList: List<Event>) {
+        events.clear()
+        events.addAll(newList)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false)
@@ -17,8 +25,7 @@ class EventAdapter(private val events: List<Event>) :
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        val event = events[position]
-        holder.bind(event)
+        holder.bind(events[position])
     }
 
     override fun getItemCount(): Int = events.size
@@ -33,11 +40,25 @@ class EventAdapter(private val events: List<Event>) :
 
         fun bind(event: Event) {
             title.text = event.title
-            status.text = event.status
-            date.text = "Дата: ${event.date}"
-            time.text = "Время: ${event.time}"
-            location.text = "Место: ${event.location}"
             description.text = event.description
+            location.text = "Место: ${event.location}"
+
+            val parsed = parseDateTime(event.startTime)
+            date.text = "Дата: ${parsed.first}"
+            time.text = "Время: ${parsed.second}"
+            status.text = if (event.conducted) "ПРОВЕДЕНО" else "ПРЕДСТОИТ"
+        }
+
+        private fun parseDateTime(dateTime: String): Pair<String, String> {
+            return try {
+                val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+                val date = sdf.parse(dateTime)
+                val day = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(date!!)
+                val time = SimpleDateFormat("HH:mm", Locale.getDefault()).format(date)
+                Pair(day, time)
+            } catch (e: Exception) {
+                Pair("неизвестно", "неизвестно")
+            }
         }
     }
 }

@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                         if (user != null) {
                             Toast.makeText(this@LoginActivity, "Добро пожаловать, ${user.fullName}!", Toast.LENGTH_SHORT).show()
                             // Перейти к главной активности
-                            startActivity(Intent(this@LoginActivity, OrganizationProfileActivity::class.java).apply {
+                            startActivity(Intent(this@LoginActivity, EventsActivity::class.java).apply {
                                 putExtra("USER_ID", user.id)
                             })
                             finish()

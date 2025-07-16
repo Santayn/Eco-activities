@@ -53,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation ("javax.inject:javax.inject:1")
     // Kotlin Standard Library
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.0")
 

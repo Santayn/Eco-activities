@@ -1,8 +1,6 @@
 package com.example.eco.api
 
-import com.example.eco.api.dto.service.AuthService
-import com.example.eco.api.dto.service.RegistrationService
-import com.example.eco.api.dto.service.UserService
+import com.example.eco.api.dto.service.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,29 +24,30 @@ object ApiClient {
         .addInterceptor(loggingInterceptor)
         .build()
 
-    // Создаем Retrofit клиент
+    // Retrofit клиенты
     val authService: AuthService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(AuthService::class.java)
+        createService(AuthService::class.java)
     }
+
     val registrationService: RegistrationService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(RegistrationService::class.java)
+        createService(RegistrationService::class.java)
     }
+
     val userService: UserService by lazy {
-        Retrofit.Builder()
+        createService(UserService::class.java)
+    }
+
+    val eventService: ApiService by lazy {
+        createService(ApiService::class.java)
+    }
+
+    // Вспомогательный метод для упрощения создания сервисов
+    private fun <T> createService(serviceClass: Class<T>): T {
+        return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(UserService::class.java)
+            .create(serviceClass)
     }
 }

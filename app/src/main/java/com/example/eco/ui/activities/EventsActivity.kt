@@ -1,14 +1,17 @@
 package com.example.eco.ui.activities
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eco.adapter.EventAdapter
+import com.example.eco.EventRepository
+import com.example.eco.EventViewModelFactory
 import com.example.eco.R
+import com.example.eco.api.ApiClient
+import com.example.eco.adapter.EventAdapter
 import com.example.eco.ui.screen.EventsViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class EventsActivity : AppCompatActivity() {
@@ -19,19 +22,20 @@ class EventsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_events)
 
-        viewModel = ViewModelProvider(this)[EventsViewModel::class.java]
+        val apiService = ApiClient.eventService
+        val repository = EventRepository(apiService)
+        viewModel = ViewModelProvider(this, EventViewModelFactory(repository))[EventsViewModel::class.java]
+
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = EventAdapter(emptyList())
+        adapter = EventAdapter(mutableListOf())
         recyclerView.adapter = adapter
 
-        // Подписка на изменения через корутину
-        CoroutineScope(Dispatchers.Main).launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.events.collect { events ->
-                adapter = EventAdapter(events)
-                recyclerView.adapter = adapter
+                adapter.submitList(events)
             }
         }
     }

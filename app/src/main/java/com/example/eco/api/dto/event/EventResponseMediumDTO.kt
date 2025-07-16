@@ -1,5 +1,4 @@
 package com.example.eco.api.dto.event
-
 import com.example.eco.api.dto.user.UserMediumDTO
 
 data class EventResponseMediumDTO(
