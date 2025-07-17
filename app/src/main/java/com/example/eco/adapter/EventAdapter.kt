@@ -36,6 +36,11 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
             // Пример привязки данных
             itemView.findViewById<TextView>(R.id.event_title).text = event.title
             itemView.findViewById<TextView>(R.id.event_date).text = event.startTime
+            itemView.findViewById<TextView>(R.id.event_location).text = event.location
+            itemView.findViewById<TextView>(R.id.event_description).text = event.description
+            val statusText = if (event.conducted) "ПРОВЕДЕНО" else "ПРЕДСТОИТ"
+            itemView.findViewById<TextView>(R.id.event_conducted).text = statusText
+
         }
     }
 }

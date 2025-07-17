@@ -1,4 +1,5 @@
 package com.example.eco.api.dto.event
+
 import com.example.eco.api.dto.user.UserMediumDTO
 
 data class EventResponseMediumDTO(
@@ -9,5 +10,6 @@ data class EventResponseMediumDTO(
     val endTime: String,
     val location: String?,
     val eventType: EventTypeDTO,
-    val owner: OwnerDTO
+    val owner: OwnerDTO,
+    val conducted: Boolean
 )
