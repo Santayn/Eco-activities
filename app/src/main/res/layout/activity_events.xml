@@ -1,19 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Toolbar -->
-    <TextView
-        android:id="@+id/toolbar"
+    <!-- Шапка -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#FFFFFF">
+
+        <!-- Текст заголовка -->
+        <TextView
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Мероприятия"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="#000000" />
+
+        <!-- Кнопки фильтрации -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end"
+            android:gravity="end">
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Поиск + Фильтры -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Мероприятия"
-        android:textSize="24sp"
-        android:padding="16dp"/>
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-    <!-- Search + Filters -->
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="256dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_search_field"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="🔍 Поиск мероприятий..."
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="4dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textColorHint="#9E9E9E"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="33dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_search"
+            android:text=""
+            android:textColor="#000000"
+            app:backgroundTint="#2196F3" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_filter" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_sort" />
+    </LinearLayout>
+
+    <!-- Табы фильтров -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/filterContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:scrollbars="none"
+            android:baselineAligned="false"
+            android:showDividers="middle"
+            android:divider="@android:color/transparent"
+            android:dividerPadding="8dp"
+            android:spacing="8dp"
+            >
+
+            <!-- Табы с MaterialButton -->
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Все"
+                android:padding="8dp"
+                app:icon="@drawable/ic_events"
+                app:iconGravity="textStart"
+                app:cornerRadius="80dp"
+                app:strokeColor="#000000"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                android:layout_marginEnd="8dp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сегодня"
+                android:padding="8dp"
+                app:icon="@drawable/box"
+                app:iconGravity="textStart"
+                app:cornerRadius="80dp"
+                app:strokeColor="#000000"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                android:layout_marginEnd="8dp"/>
+
+            <com.google.android.material.button.MaterialButton
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Скоро"
+                android:padding="8dp"
+                app:icon="@drawable/rocket"
+                app:iconGravity="textStart"
+                app:cornerRadius="80dp"
+                app:strokeColor="#FFFFFF"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                android:layout_marginEnd="8dp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="На неделю"
+                android:padding="8dp"
+                app:icon="@drawable/paper"
+                app:iconGravity="textStart"
+                app:cornerRadius="80dp"
+                app:strokeColor="#000000"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                android:layout_marginEnd="8dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Завершенные"
+                android:padding="8dp"
+                app:icon="@drawable/ok"
+                app:iconGravity="textStart"
+                app:cornerRadius="80dp"
+                app:strokeColor="#000000"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                android:layout_marginEnd="8dp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Мои"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                app:cornerRadius="80dp"
+                app:icon="@drawable/ic_profile"
+                app:iconGravity="textStart"
+                app:strokeColor="#000000"
+                android:layout_marginEnd="8dp"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Дата фильтра -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,44 +196,48 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/searchInput"
+            android:id="@+id/dateFromInput"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
-            android:hint="Поиск мероприятий..." />
+            android:hint="С даты события"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:background="@drawable/bg_search_field"
+            android:layout_marginEnd="8dp"
+            />
 
-        <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="40dp"
+        <EditText
+            android:id="@+id/dateToInput"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="40dp"
-            android:text="🔍"/>
+            android:hint="По дате события"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:background="@drawable/bg_search_field" />
     </LinearLayout>
 
-    <!-- Tabs -->
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/filterContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!-- Добавляются программно или через include -->
-        </LinearLayout>
-    </HorizontalScrollView>
+    <!-- Список мероприятий -->
 
-    <!-- List -->
+    <!-- Bottom Navigation -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp"
-        android:background="#E0E0E0" />
+        android:background="#E0E0E0"
+        android:padding="8dp" />
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="58dp" />
+        android:layout_height="70dp"
+        android:background="#FFFFFF"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/bottom_nav_icon_tint"
+        app:itemTextColor="@color/bottom_nav_text_tint"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>
