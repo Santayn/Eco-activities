@@ -12,6 +12,7 @@ import com.example.eco.api.ApiClient
 import com.example.eco.api.dto.auth.AuthRequestDto
 import com.example.eco.api.dto.auth.AuthResponseDto
 import com.example.eco.ui.activities.EventsActivity
+import com.example.eco.ui.activities.OrganizationProfileActivity
 import com.example.eco.ui.activities.RegisterActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
                             sharedPref.edit().putString("token", user.token).apply()
 
                             Toast.makeText(this@LoginActivity, "Добро пожаловать, ${user.fullName}!", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this@LoginActivity, EventsActivity::class.java).apply {
+                            startActivity(Intent(this@LoginActivity, OrganizationProfileActivity::class.java).apply {
                                 putExtra("USER_ID", user.id)
                             })
                             finish()

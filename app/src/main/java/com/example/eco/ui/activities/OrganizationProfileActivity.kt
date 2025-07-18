@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.eco.NavigationManager
 import com.example.eco.R
 import com.example.eco.api.ApiClient
 import com.example.eco.api.dto.user.UserCollapseDTO
 import com.example.eco.ui.screen.LoginActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +28,12 @@ class OrganizationProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_organization_profile)
+
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        // Инициализация NavigationManager
+        NavigationManager(bottomNav, this)
+
 
         // === Инициализация UI ===
         tv_full_name = findViewById(R.id.tv_full_name)

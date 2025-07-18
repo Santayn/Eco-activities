@@ -4,6 +4,7 @@ package com.example.eco.api
 
 import android.content.Context
 import ApiService
+import BonusApi
 import com.example.eco.AuthInterceptor
 import com.example.eco.api.dto.service.*
 import okhttp3.OkHttpClient
@@ -71,5 +72,8 @@ object ApiClient {
 
     val eventService: ApiService by lazy {
         createService(ApiService::class.java)
+    }
+    val bonusService: BonusApi by lazy {
+        createService(BonusApi::class.java)
     }
 }

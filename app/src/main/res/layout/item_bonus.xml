@@ -1,0 +1,52 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_bonuses"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_bonus_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Бонус за сортировку"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintEnd_toStartOf="@id/tv_bonus_amount"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/tv_bonus_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="12.04.2025"
+        android:textSize="12sp"
+        android:textColor="#777"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintEnd_toStartOf="@id/tv_bonus_amount"
+        app:layout_constraintTop_toBottomOf="@id/tv_bonus_title"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/tv_bonus_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+20"
+        android:textSize="16sp"
+        android:textColor="@color/green"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

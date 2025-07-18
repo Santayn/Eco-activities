@@ -4,6 +4,7 @@
     <color name="white">#FFFFFF</color> <!-- Белый текст -->
     <color name="black">#000000</color> <!-- Черный текст -->
     <color name="grey">#808080</color> <!-- Серый текст -->
+
     <color name="blue">#007AFF</color> <!-- Голубая ссылка -->
     <color name="primary">#007AFF</color>
     <color name="secondary">#FFC107</color>
@@ -12,5 +13,11 @@
     <color name="text_secondary">#666666</color>
     <color name="red_500">#FF5252</color>
     <color name="colorPrimaryLight">#E8F5E9</color>
+    <color name="colorPrimary">#007BFF</color> <!-- Голубой фон статистики -->
+    <color name="green_positive">#28A745</color> <!-- Положительные бонусы -->
+    <color name="red_negative">#DC3545</color> <!-- Отрицательные бонусы -->
+    <color name="gray_500">#6C757D</color>
+    <color name="green">#FF4CAF50</color> <!-- Зелёный цвет Material Design -->
+    <color name="red">#FFD32F2F</color> <!-- Серый текст -->
 
 </resources>

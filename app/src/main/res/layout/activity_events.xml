@@ -9,28 +9,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="#FFFFFF">
+        android:padding="8dp">
 
         <!-- Текст заголовка -->
         <TextView
             android:id="@+id/toolbar"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Мероприятия"
-            android:textSize="24sp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="#000000" />
+            android:text="Мероприятия"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
         <!-- Кнопки фильтрации -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="end"
-            android:gravity="end">
+            android:gravity="end"
+            android:orientation="horizontal">
 
         </LinearLayout>
     </LinearLayout>
@@ -87,95 +87,92 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/filterContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:scrollbars="none"
             android:baselineAligned="false"
-            android:showDividers="middle"
             android:divider="@android:color/transparent"
             android:dividerPadding="8dp"
-            android:spacing="8dp"
-            >
+            android:orientation="horizontal"
+            android:scrollbars="none"
+            android:showDividers="middle"
+            android:spacing="8dp">
 
             <!-- Табы с MaterialButton -->
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Все"
+                android:layout_marginEnd="8dp"
                 android:padding="8dp"
+                android:text="Все"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                app:cornerRadius="80dp"
                 app:icon="@drawable/ic_events"
                 app:iconGravity="textStart"
-                app:cornerRadius="80dp"
-                app:strokeColor="#000000"
-                android:textColor="#000000"
-                app:backgroundTint="#2196F3"
-                android:layout_marginEnd="8dp"
-                />
+                app:strokeColor="#000000" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Сегодня"
+                android:layout_marginEnd="8dp"
                 android:padding="8dp"
+                android:text="Сегодня"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                app:cornerRadius="80dp"
                 app:icon="@drawable/box"
                 app:iconGravity="textStart"
-                app:cornerRadius="80dp"
-                app:strokeColor="#000000"
-                android:textColor="#000000"
-                app:backgroundTint="#2196F3"
-                android:layout_marginEnd="8dp"/>
+                app:strokeColor="#000000" />
 
             <com.google.android.material.button.MaterialButton
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Скоро"
+                android:layout_marginEnd="8dp"
                 android:padding="8dp"
+                android:text="Скоро"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                app:cornerRadius="80dp"
                 app:icon="@drawable/rocket"
                 app:iconGravity="textStart"
-                app:cornerRadius="80dp"
-                app:strokeColor="#FFFFFF"
-                android:textColor="#000000"
-                app:backgroundTint="#2196F3"
-                android:layout_marginEnd="8dp"
-                />
+                app:strokeColor="#FFFFFF" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="На неделю"
+                android:layout_marginEnd="8dp"
                 android:padding="8dp"
+                android:text="На неделю"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                app:cornerRadius="80dp"
                 app:icon="@drawable/paper"
                 app:iconGravity="textStart"
-                app:cornerRadius="80dp"
-                app:strokeColor="#000000"
-                android:textColor="#000000"
-                app:backgroundTint="#2196F3"
-                android:layout_marginEnd="8dp"/>
+                app:strokeColor="#000000" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Завершенные"
+                android:layout_marginEnd="8dp"
                 android:padding="8dp"
+                android:text="Завершенные"
+                android:textColor="#000000"
+                app:backgroundTint="#2196F3"
+                app:cornerRadius="80dp"
                 app:icon="@drawable/ok"
                 app:iconGravity="textStart"
-                app:cornerRadius="80dp"
-                app:strokeColor="#000000"
-                android:textColor="#000000"
-                app:backgroundTint="#2196F3"
-                android:layout_marginEnd="8dp"
-                />
+                app:strokeColor="#000000" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:padding="8dp"
                 android:text="Мои"
                 android:textColor="#000000"
@@ -183,8 +180,7 @@
                 app:cornerRadius="80dp"
                 app:icon="@drawable/ic_profile"
                 app:iconGravity="textStart"
-                app:strokeColor="#000000"
-                android:layout_marginEnd="8dp"/>
+                app:strokeColor="#000000" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -198,24 +194,23 @@
         <EditText
             android:id="@+id/dateFromInput"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search_field"
             android:hint="С даты события"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:background="@drawable/bg_search_field"
-            android:layout_marginEnd="8dp"
-            />
+            android:paddingRight="16dp" />
 
         <EditText
             android:id="@+id/dateToInput"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search_field"
             android:hint="По дате события"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:background="@drawable/bg_search_field" />
+            android:paddingRight="16dp" />
     </LinearLayout>
 
     <!-- Список мероприятий -->
