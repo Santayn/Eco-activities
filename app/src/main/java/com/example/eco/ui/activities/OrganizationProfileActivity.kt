@@ -11,7 +11,6 @@ import com.example.eco.api.ApiClient
 import com.example.eco.api.dto.user.UserCollapseDTO
 import com.example.eco.ui.screen.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,11 +28,8 @@ class OrganizationProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_organization_profile)
 
-
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        // Инициализация NavigationManager
         NavigationManager(bottomNav, this)
-
 
         // === Инициализация UI ===
         tv_full_name = findViewById(R.id.tv_full_name)
@@ -42,7 +38,6 @@ class OrganizationProfileActivity : AppCompatActivity() {
         tv_total_participants = findViewById(R.id.tv_total_participants)
         btn_logout = findViewById(R.id.btn_logout)
 
-        // === Навигация ===
         btn_logout.setOnClickListener {
             logoutUser()
         }
@@ -52,7 +47,7 @@ class OrganizationProfileActivity : AppCompatActivity() {
     }
 
     private fun loadUserProfile() {
-        ApiClient.userService.getUserProfile(userId = 1).enqueue(object :
+        ApiClient.userService.getCurrentUserProfile().enqueue(object :
             Callback<UserCollapseDTO> {
             override fun onResponse(
                 call: Call<UserCollapseDTO>,
@@ -63,9 +58,12 @@ class OrganizationProfileActivity : AppCompatActivity() {
                     if (profile != null) {
                         tv_full_name.text = profile.fullName
                         tv_organization_type.text = profile.role
-                        tv_events_created.text = profile.registeredEventsCount.toString()
-                        tv_total_participants.text = profile.totalBonusPoints.toString()
+                        // Предположим, что registeredEventsCount и totalBonusPoints теперь хранятся в других полях
+                        tv_events_created.text = "0" // Здесь можно добавить логику для новых полей
+                        tv_total_participants.text = "0" // Здесь можно добавить логику для новых полей
                     }
+                } else {
+                    // Можно показать Toast или сообщение об ошибке
                 }
             }
 

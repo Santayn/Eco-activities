@@ -6,7 +6,9 @@ import android.content.Context
 import ApiService
 import BonusApi
 import com.example.eco.AuthInterceptor
-import com.example.eco.api.dto.service.*
+import com.example.eco.api.service.AuthService
+import com.example.eco.api.service.RegistrationService
+import com.example.eco.api.service.UserService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

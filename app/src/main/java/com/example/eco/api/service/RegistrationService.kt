@@ -1,4 +1,4 @@
-package com.example.eco.api.dto.service
+package com.example.eco.api.service
 
 import com.example.eco.api.dto.registration.UserRegistrationRequestDto
 import com.example.eco.api.dto.registration.UserRegistrationResponseDto
