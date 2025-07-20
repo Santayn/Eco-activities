@@ -77,7 +77,7 @@ class BonusesActivity : AppCompatActivity() {
                         currentPage++
                         val startDate = editStartDate.text.toString()
                         val endDate = editEndDate.text.toString()
-                        viewModel.loadBonuses(123, currentPage, 10, startDate, endDate)
+                        viewModel.loadBonuses(16, currentPage, 10, startDate, endDate)
                     }
                 } else {
                     btnLoadMore.visibility = View.GONE
@@ -100,6 +100,6 @@ class BonusesActivity : AppCompatActivity() {
         }
 
         // Первая загрузка
-        viewModel.loadBonuses(userId = 123, page = 0, size = 10, "", "")
+        viewModel.loadBonuses(userId = 16, page = 0, size = 10, "", "")
     }
 }
