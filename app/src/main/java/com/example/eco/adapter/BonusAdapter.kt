@@ -6,16 +6,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eco.R
-import com.example.eco.api.dto.bonus.BonusHistoryDto
-import com.example.eco.api.dto.bonus.BonusTypeDTO
-import java.text.SimpleDateFormat
-import java.util.Locale
+import com.example.eco.api.dto.bonus.UserBonusHistoryItem
 
-class BonusAdapter(private var bonuses: List<BonusHistoryDto>) :
-    RecyclerView.Adapter<BonusAdapter.BonusViewHolder>() {
+class BonusesAdapter : RecyclerView.Adapter<BonusesAdapter.BonusViewHolder>() {
 
-    fun updateData(newList: List<BonusHistoryDto>) {
-        bonuses = newList
+    private var bonusList: MutableList<UserBonusHistoryItem> = ArrayList()
+
+    fun setBonuses(bonuses: List<UserBonusHistoryItem>) {
+        this.bonusList.clear()
+        this.bonusList.addAll(bonuses)
+        notifyDataSetChanged()
+    }
+
+    fun addBonuses(newBonuses: List<UserBonusHistoryItem>) {
+        this.bonusList.addAll(newBonuses)
         notifyDataSetChanged()
     }
 
@@ -26,27 +30,23 @@ class BonusAdapter(private var bonuses: List<BonusHistoryDto>) :
     }
 
     override fun onBindViewHolder(holder: BonusViewHolder, position: Int) {
-        holder.bind(bonuses[position])
+        val item = bonusList[position]
+        holder.bind(item)
     }
 
-    override fun getItemCount(): Int = bonuses.size
+    override fun getItemCount(): Int {
+        return bonusList.size
+    }
 
-    inner class BonusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvTitle: TextView = itemView.findViewById(R.id.tv_bonus_title)
-        private val tvDate: TextView = itemView.findViewById(R.id.tv_bonus_date)
-        private val tvAmount: TextView = itemView.findViewById(R.id.tv_bonus_amount)
+    class BonusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tvBonusTitle: TextView = itemView.findViewById(R.id.tv_bonus_title)
+        private val tvBonusDate: TextView = itemView.findViewById(R.id.tv_bonus_date)
+        private val tvBonusAmount: TextView = itemView.findViewById(R.id.tv_bonus_amount)
 
-        fun bind(bonus: BonusHistoryDto) {
-            tvTitle.text = bonus.bonusType.name
-
-            val dateFormat = SimpleDateFormat("dd MMM, HH:mm", Locale.getDefault())
-            tvDate.text = dateFormat.format(bonus.createdAt)
-
-            tvAmount.text = "+${bonus.amount}"
-            tvAmount.setTextColor(
-                if (bonus.amount > 0) android.graphics.Color.GREEN
-                else android.graphics.Color.RED
-            )
+        fun bind(item: UserBonusHistoryItem) {
+            tvBonusTitle.text = item.reason
+            tvBonusDate.text = item.createdAt
+            tvBonusAmount.text = "+${item.amount}"
         }
     }
 }

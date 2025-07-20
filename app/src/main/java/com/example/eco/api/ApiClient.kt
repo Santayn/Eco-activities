@@ -75,7 +75,8 @@ object ApiClient {
     val eventService: ApiService by lazy {
         createService(ApiService::class.java)
     }
-    val bonusService: BonusApi by lazy {
+    val bonusApi: BonusApi by lazy {
         createService(BonusApi::class.java)
     }
+
 }
