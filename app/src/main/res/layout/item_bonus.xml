@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:padding="16dp"
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/icon"
@@ -19,23 +20,21 @@
         android:id="@+id/tv_bonus_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Бонус за сортировку"
+        android:text="Реферальный бонус"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintEnd_toStartOf="@id/tv_bonus_amount"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="12dp" />
 
     <TextView
         android:id="@+id/tv_bonus_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="12.04.2025"
+        android:text="2025-04-05T12:00:00"
         android:textSize="12sp"
         android:textColor="#777"
         app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintEnd_toStartOf="@id/tv_bonus_amount"
         app:layout_constraintTop_toBottomOf="@id/tv_bonus_title"
         android:layout_marginStart="12dp" />
 
@@ -43,11 +42,10 @@
         android:id="@+id/tv_bonus_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+20"
+        android:text="+100"
         android:textSize="16sp"
         android:textColor="@color/green"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="8dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

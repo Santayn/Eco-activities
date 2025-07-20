@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/sort_default"
+            android:title="По умолчанию" />
+        <item
+            android:id="@+id/sort_descending_date"
+            android:title="По убыванию даты" />
+        <item
+            android:id="@+id/sort_ascending_date"
+            android:title="По возрастанию даты" />
+        <item
+            android:id="@+id/sort_asc_name"
+            android:title="По названию А-Я" />
+        <item
+            android:id="@+id/sort_desc_name"
+            android:title="По названию Я-А" />
+    </group>
+</menu>

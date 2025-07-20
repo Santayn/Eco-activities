@@ -7,19 +7,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eco.R
 import com.example.eco.api.dto.bonus.UserBonusHistoryItem
-
 class BonusesAdapter : RecyclerView.Adapter<BonusesAdapter.BonusViewHolder>() {
 
-    private var bonusList: MutableList<UserBonusHistoryItem> = ArrayList()
+    private val bonusList: MutableList<UserBonusHistoryItem> = ArrayList()
 
     fun setBonuses(bonuses: List<UserBonusHistoryItem>) {
-        this.bonusList.clear()
-        this.bonusList.addAll(bonuses)
+        bonusList.clear()
+        bonusList.addAll(bonuses)
         notifyDataSetChanged()
     }
 
     fun addBonuses(newBonuses: List<UserBonusHistoryItem>) {
-        this.bonusList.addAll(newBonuses)
+        bonusList.addAll(newBonuses)
         notifyDataSetChanged()
     }
 
@@ -30,13 +29,10 @@ class BonusesAdapter : RecyclerView.Adapter<BonusesAdapter.BonusViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: BonusViewHolder, position: Int) {
-        val item = bonusList[position]
-        holder.bind(item)
+        holder.bind(bonusList[position])
     }
 
-    override fun getItemCount(): Int {
-        return bonusList.size
-    }
+    override fun getItemCount(): Int = bonusList.size
 
     class BonusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvBonusTitle: TextView = itemView.findViewById(R.id.tv_bonus_title)
