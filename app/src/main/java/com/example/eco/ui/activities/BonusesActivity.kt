@@ -10,10 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eco.NavigationManager
 import com.example.eco.R
 
 import com.example.eco.adapter.BonusesAdapter
+import com.example.eco.api.ApiClient
 import com.example.eco.viewmodel.BonusesViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BonusesActivity : AppCompatActivity() {
 
@@ -25,51 +28,65 @@ class BonusesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bonuses)
 
-        // Инициализация UI
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_operations)
-        val progressBar: ProgressBar = findViewById(R.id.progress_bar)
-        val errorMessage: TextView = findViewById(R.id.error_message)
-        val btnLoadMore: Button = findViewById(R.id.btn_load_more)
-        val editStartDate: EditText = findViewById(R.id.edit_start_date)
-        val editEndDate: EditText = findViewById(R.id.edit_end_date)
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        // Инициализация NavigationManager
+        NavigationManager(bottomNav, this)
 
-        // Настройка RecyclerView
+        // Инициализация ApiClient с контекстом
+        ApiClient.init(this)
+
+
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_operations)
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
+        val emptyState = findViewById<TextView>(R.id.empty_state)
+        val errorMessage = findViewById<TextView>(R.id.error_message)
+        val btnLoadMore = findViewById<Button>(R.id.btn_load_more)
+        val editStartDate = findViewById<EditText>(R.id.edit_start_date)
+        val editEndDate = findViewById<EditText>(R.id.edit_end_date)
+
         adapter = BonusesAdapter()
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        // Инициализация ViewModel
         viewModel = ViewModelProvider(this).get(BonusesViewModel::class.java)
 
         // Подписка на данные
         viewModel.bonusHistory.observe(this) { response ->
             if (response != null) {
-                val nonNullContent = response.getNonNullContent()
-
-                if (currentPage == 0) {
-                    adapter.setBonuses(nonNullContent)
-                } else {
-                    adapter.addBonuses(nonNullContent)
-                }
-
                 progressBar.visibility = View.GONE
-                btnLoadMore.isEnabled = true
-                currentPage++
 
-                // Показать/скрыть пустое состояние
-                val emptyState = findViewById<TextView>(R.id.empty_state)
+                val nonNullContent = response.content?.filterNotNull() ?: emptyList()
+
                 if (nonNullContent.isEmpty()) {
                     emptyState.visibility = View.VISIBLE
+                    btnLoadMore.visibility = View.GONE
                 } else {
                     emptyState.visibility = View.GONE
+                    if (currentPage == 0) {
+                        adapter.setBonuses(nonNullContent)
+                    } else {
+                        adapter.addBonuses(nonNullContent)
+                    }
                 }
 
-                // Показать "Загрузить больше", если есть следующая страница
+                // Пагинация
                 if (response.number < response.totalPages - 1) {
                     btnLoadMore.visibility = View.VISIBLE
+                    btnLoadMore.setOnClickListener {
+                        currentPage++
+                        val startDate = editStartDate.text.toString()
+                        val endDate = editEndDate.text.toString()
+                        viewModel.loadBonuses(123, currentPage, 10, startDate, endDate)
+                    }
                 } else {
                     btnLoadMore.visibility = View.GONE
                 }
+
+            } else {
+                // Можно показать ошибку или просто пустой экран
+                progressBar.visibility = View.GONE
+                emptyState.visibility = View.VISIBLE
             }
         }
 
@@ -82,16 +99,7 @@ class BonusesActivity : AppCompatActivity() {
             }
         }
 
-        // Обработчик кнопки "Загрузить больше"
-        btnLoadMore.setOnClickListener {
-            btnLoadMore.isEnabled = false
-            progressBar.visibility = View.VISIBLE
-            val startDate = editStartDate.text.toString()
-            val endDate = editEndDate.text.toString()
-            viewModel.loadBonuses(userId = 123, page = currentPage, size = 10, startDate, endDate)
-        }
-
-        // Первая загрузка данных
+        // Первая загрузка
         viewModel.loadBonuses(userId = 123, page = 0, size = 10, "", "")
     }
 }

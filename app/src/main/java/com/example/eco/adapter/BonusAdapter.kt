@@ -6,7 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eco.R
+import com.example.eco.api.ApiClient
 import com.example.eco.api.dto.bonus.UserBonusHistoryItem
+import com.example.eco.api.dto.bonus.UserBonusHistoryResponse
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
+
 class BonusesAdapter : RecyclerView.Adapter<BonusesAdapter.BonusViewHolder>() {
 
     private val bonusList: MutableList<UserBonusHistoryItem> = ArrayList()
@@ -17,8 +23,8 @@ class BonusesAdapter : RecyclerView.Adapter<BonusesAdapter.BonusViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun addBonuses(newBonuses: List<UserBonusHistoryItem>) {
-        bonusList.addAll(newBonuses)
+    fun addBonuses(bonuses: List<UserBonusHistoryItem>) {
+        bonusList.addAll(bonuses)
         notifyDataSetChanged()
     }
 
@@ -35,14 +41,14 @@ class BonusesAdapter : RecyclerView.Adapter<BonusesAdapter.BonusViewHolder>() {
     override fun getItemCount(): Int = bonusList.size
 
     class BonusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvBonusTitle: TextView = itemView.findViewById(R.id.tv_bonus_title)
-        private val tvBonusDate: TextView = itemView.findViewById(R.id.tv_bonus_date)
-        private val tvBonusAmount: TextView = itemView.findViewById(R.id.tv_bonus_amount)
+        private val title: TextView = itemView.findViewById(R.id.tv_bonus_title)
+        private val date: TextView = itemView.findViewById(R.id.tv_bonus_date)
+        private val amount: TextView = itemView.findViewById(R.id.tv_bonus_amount)
 
         fun bind(item: UserBonusHistoryItem) {
-            tvBonusTitle.text = item.reason
-            tvBonusDate.text = item.createdAt
-            tvBonusAmount.text = "+${item.amount}"
+            title.text = item.reason
+            date.text = item.createdAt
+            amount.text = "+${item.amount}"
         }
     }
 }
